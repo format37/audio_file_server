@@ -1,15 +1,31 @@
 import asyncio
 from aiohttp import web
 from audio_sql_proc import cdr_filenames
+import os
 
 WEBHOOK_PORT = 8082
-WEBHOOK_LISTEN = '0.0.0.0'  # In some VPS you may need to put here the IP addr
-
-async def call_test(request):
-	return web.Response(text='ok',content_type="text/html")
 
 async def call_filenames(request):
-	#question = request.rel_url.query['question']	
+	
+	answer = 'request received'
+	
+	data_path = '/home/alex/projectaudio_file_server/data/'
+	data_uid = str(uuid4())
+	file_path_data			= data_path+data_uid+'.csv'	
+
+	# save data	
+	with open(file_path_data, 'w') as source_file: 
+		source_file.write(await request.text())
+		source_file.close()
+		
+	# read data
+	#with open(file_path_data, 'rb') as source_file:
+	#	lines = source_file.readlines()
+	#	source_file.close()
+		#os.unlink(file_path_data) TODO: enable
+
+	df = pd.read_csv(file_path_data,';')
+	
 	linkedid = []
 	linkedid.append(
 		{
@@ -28,24 +44,26 @@ async def call_filenames(request):
 		}
 	)
 	sql_result = cdr_filenames(linkedid)
-	answer = 'is: '
+
+	answer = ''
+
 	for row in sql_result:
+
 		call_id		= row[0]
 		linkedid	= row[1]
 		filename	= row[2]
-		
+
 		last_slash_pos = filename.rindex('/')
 		filename 	= filename[last_slash_pos+1:]
-		
+
 		answer += call_id+' - '+linkedid+' - '+filename+' - '+'<br>'
+		
 	return web.Response(text=answer,content_type="text/html")
 
-app = web.Application()
-app.router.add_route('GET', '/test', call_test)
-app.router.add_route('GET', '/filenames', call_filenames)
+app = web.Application(client_max_size=1024**3)
+app.router.add_post('/log_ttl_report', call_log_ttl_report)
 
 web.run_app(
     app,
-    host=WEBHOOK_LISTEN,
     port=WEBHOOK_PORT,
 )

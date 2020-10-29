@@ -60,18 +60,19 @@ def cdr_filenames(linkedid):
 		cursor.execute(query)
 
 		# create known linkedid list
-		query = """create temporary table primary_linkedid_0
-		select
-		'"""+linkedid[0]['call_id']+"""' as call_id,
-		'"""+linkedid[0]['date_from']+"""' as date_from,
-		'"""+linkedid[0]['date_to']+"""' as date_to,
-		'"""+linkedid[0]['linkedid']+"""' as linkedid
-		union all
-		select
-		'"""+linkedid[1]['call_id']+"""' as call_id,
-		'"""+linkedid[1]['date_from']+"""' as date_from,
-		'"""+linkedid[1]['date_to']+"""' as date_to,
-		'"""+linkedid[1]['linkedid']+"""' as linkedid;"""    
+		query = 'create temporary table primary_linkedid_0'
+		i = 0
+		for instance in linkedid:
+			query+="""
+			"""+('' if i==0 else 'union all')+"""
+			select
+			'"""+instance['call_id']+"""' as call_id,
+			'"""+instance['date_from']+"""' as date_from,
+			'"""+instance['date_to']+"""' as date_to,
+			'"""+instance['linkedid']+"""' as linkedid"""
+			i+=1
+		query+=';'
+		query
 		cursor = cook.con.cursor()
 		cursor.execute(query)
 
