@@ -61,7 +61,7 @@ async def call_filenames(request):
 	return web.Response(text=answer,content_type="text/html")
 
 app = web.Application(client_max_size=1024**3)
-app.router.add_post('/log_ttl_report', call_log_ttl_report)
+app.router.add_post('/filenames', call_filenames)
 
 web.run_app(
     app,
