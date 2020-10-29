@@ -58,7 +58,7 @@ async def call_filenames(request):
 		last_slash_pos = filename.rindex('/')
 		filename 	= filename[last_slash_pos+1:]
 
-		answer += call_id+' - '+linkedid+' - '+filename+' - '+'<br>'
+		answer += call_id+';'+linkedid+';'+filename+';'+'\n'
 		
 	return web.Response(text=answer,content_type="text/html")
 
