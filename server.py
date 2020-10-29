@@ -10,7 +10,7 @@ async def call_filenames(request):
 	
 	answer = 'request received'
 	
-	data_path = '/home/alex/projectaudio_file_server/data/'
+	data_path = '/home/alex/projects/audio_file_server/data/'
 	data_uid = str(uuid4())
 	file_path_data			= data_path+data_uid+'.csv'	
 
