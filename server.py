@@ -30,8 +30,7 @@ async def call_filenames(request):
 	sql_result = audio_sql_proc(linkedid)
 	answer = 'is: '
 	for row in sql_result:
-		answer += str(row)+"""
-		"""
+		answer += str(row)+'<br>'
 	return web.Response(text=answer,content_type="text/html")
 
 app = web.Application()
