@@ -27,7 +27,7 @@ async def call_filenames(request):
 		'linkedid':'1602789550.14400185',
 		}
 	)
-	sql_result = audio_sql_proc(linkedid)
+	sql_result = cdr_filenames(linkedid)
 	answer = 'is: '
 	for row in sql_result:
 		answer += str(row)+'<br>'
