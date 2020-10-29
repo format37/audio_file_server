@@ -180,7 +180,7 @@ def cdr_filenames(linkedid):
 		inner join relationsCalls 
 		on 
 		relationsCalls.calldate>linkedid_relation_batch_1_instance_1.date_from and
-		relationsCealls.calldate<linkedid_relation_batch_1_instance_1.date_to and
+		relationsCalls.calldate<linkedid_relation_batch_1_instance_1.date_to and
 		linkedid_relation_batch_1_instance_1.linkedid=relationsCalls.linkedid1
 		where 
 		linkedid_relation_batch_1_instance_1.relation_level = 1
