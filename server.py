@@ -30,7 +30,14 @@ async def call_filenames(request):
 	sql_result = cdr_filenames(linkedid)
 	answer = 'is: '
 	for row in sql_result:
-		answer += str(row)+'<br>'
+		call_id		= row[0]
+		linkedid	= row[1]
+		filename	= row[2]
+		
+		last_slash_pos = filename.rindex('/')
+		filename 	= filename[last_slash_pos+1:]
+		
+		answer += call_id+' - '+linkedid+' - '+filename+' - '+'<br>'
 	return web.Response(text=answer,content_type="text/html")
 
 app = web.Application()
