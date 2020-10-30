@@ -66,9 +66,9 @@ def cdr_filenames(df):
 		for i in range(len(df)):
 			instance = df.iloc[i]
 			#print(row.call_id,row.linkedid)
-			print('instance.date_from',instance.date_from)
-			date_from	= datetime.strptime(row.date_from,	'%d.%m.%Y %H:%M:%S').strftime('%Y-%m-%dT%H:%M:%S')
-			date_to		= datetime.strptime(row.date_to,	'%d.%m.%Y %H:%M:%S').strftime('%Y-%m-%dT%H:%M:%S')
+			#print('instance.date_from',instance.date_from)
+			date_from	= datetime.strptime(instance.date_from,	'%d.%m.%Y %H:%M:%S').strftime('%Y-%m-%dT%H:%M:%S')
+			date_to		= datetime.strptime(instance.date_to,	'%d.%m.%Y %H:%M:%S').strftime('%Y-%m-%dT%H:%M:%S')
 			query+="""
 			"""+('' if i==0 else 'union all')+"""
 			select
