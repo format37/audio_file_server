@@ -74,8 +74,7 @@ def cdr_filenames(df):
 			'"""+str(date_to)+"""' as date_to,
 			'"""+str(instance.linkedid)+"""' as linkedid"""
 
-		query+=';'
-		print(query)
+		query+=';'		
 		cursor = cook.con.cursor()
 		cursor.execute(query)
 
