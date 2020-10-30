@@ -27,7 +27,7 @@ async def call_filenames(request):
 		#os.unlink(file_path_data) TODO: enable
 
 	df = pd.read_csv(file_path_data,';')
-	
+	'''
 	linkedid = []
 	linkedid.append(
 		{
@@ -45,7 +45,8 @@ async def call_filenames(request):
 		'linkedid':'1602789550.14400185',
 		}
 	)
-	sql_result = cdr_filenames(linkedid)
+	'''
+	sql_result = cdr_filenames(df)
 
 	answer = ''
 
