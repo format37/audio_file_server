@@ -62,11 +62,8 @@ def cdr_filenames(df):
 
 		# create known linkedid list
 		query = 'create temporary table primary_linkedid_0'
-		#i = 0
 		for i in range(len(df)):
 			instance = df.iloc[i]
-			#print(row.call_id,row.linkedid)
-			#print('instance.date_from',instance.date_from)
 			date_from	= datetime.strptime(instance.date_from,	'%d.%m.%Y %H:%M:%S').strftime('%Y-%m-%dT%H:%M:%S')
 			date_to		= datetime.strptime(instance.date_to,	'%d.%m.%Y %H:%M:%S').strftime('%Y-%m-%dT%H:%M:%S')
 			query+="""
@@ -76,19 +73,9 @@ def cdr_filenames(df):
 			'"""+str(date_from)+"""' as date_from,
 			'"""+str(date_to)+"""' as date_to,
 			'"""+str(instance.linkedid)+"""' as linkedid"""
-		'''
-		for instance in linkedid:
-			query+="""
-			"""+('' if i==0 else 'union all')+"""
-			select
-			'"""+instance['call_id']+"""' as call_id,
-			'"""+instance['date_from']+"""' as date_from,
-			'"""+instance['date_to']+"""' as date_to,
-			'"""+instance['linkedid']+"""' as linkedid"""
-			i+=1
-		'''
+
 		query+=';'
-		query
+		print(query)
 		cursor = cook.con.cursor()
 		cursor.execute(query)
 
