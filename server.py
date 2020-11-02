@@ -19,9 +19,8 @@ async def call_filenames(request):
 	with open(file_path_data, 'w') as source_file: 
 		source_file.write(await request.text())
 		source_file.close()
-		os.unlink(file_path_data)
-
 		df = pd.read_csv(file_path_data,';',dtype = {'call_id': 'str', 'linkedid': 'str'})
+		os.unlink(file_path_data)
 		sql_result = cdr_filenames(df)
 
 		answer = ''
