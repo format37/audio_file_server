@@ -218,7 +218,7 @@ def cdr_filenames(df):
 		cursor.execute(query)
 
 		query = """
-		select
+		select distinct
 		linkedid_related.call_id,    
 		linkedid_related.linkedid,
 		PT1C_cdr_MICO.recordingfile
